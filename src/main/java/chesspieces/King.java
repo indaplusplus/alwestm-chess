@@ -3,6 +3,8 @@ import coordination.Vector;
 import java.util.ArrayList;
 
 public class King extends Piece {
+  private boolean hasMoved = false;
+
   public King(Vector pos, Color color) {
     super(pos, color);
     type = PieceType.KING;
@@ -41,6 +43,13 @@ public class King extends Piece {
     }
     return toReturn;
   }
+
+  @Override
+  public void moveToPos(Vector newPos) {
+    super.moveToPos(newPos);
+    hasMoved = true;
+  }
+
   public boolean isInCheck(ArrayList<Piece> pieces) {
     boolean toReturn = false;
     for (Piece p : pieces) {
@@ -51,5 +60,9 @@ public class King extends Piece {
       }
     }
     return toReturn;
+  }
+
+  public boolean isHasMoved() {
+    return hasMoved;
   }
 }

@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
+import runninglogic.Board;
+import runninglogic.InputInterpreter;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
   @Test
@@ -12,7 +13,7 @@ class BoardTest {
 
     System.out.println("\n \n");
 
-    b.update("e4");
+    /*b.update("e4");
     b.Draw();
     System.out.println("e4 \n \n");
 
@@ -50,6 +51,6 @@ class BoardTest {
 
     b.update("Kf7");
     b.Draw();
-    System.out.println("Kf7+ \n \n");
+    System.out.println("Kf7+ \n \n");*/
   }
 }

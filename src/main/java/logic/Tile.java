@@ -12,7 +12,7 @@ public class Tile {
         break;
     }
   }
-  public Piece getPiece() {
+  public Piece getPieces() {
     return piece;
   }
   public void setPiece(Piece piece) {

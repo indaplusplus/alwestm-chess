@@ -5,6 +5,7 @@ import coordination.Vector;
 import java.util.ArrayList;
 
 public class Rook extends Piece {
+  private boolean hasMoved = false;
   public Rook(Vector pos, Color color) {
     super(pos, color);
     type = PieceType.ROOK;
@@ -14,30 +15,32 @@ public class Rook extends Piece {
   public int canMoveToPos(ArrayList<Piece> pieces, Vector newPos) {
     int toReturn = 1;
     Vector dist = pos.dist(newPos);
-    if (dist.getLetter() == 0 ||dist.getNumber() == 0 ) {
+    if (!(dist.getLetter() == 0 && dist.getNumber() == 0) && (dist.getNumber() == 0 || dist.getLetter() == 0)) {
       if (isPieceInPos(pieces, newPos)) {
         toReturn = getPieceInPos(pieces, newPos).color == color ? 0 : 2;
-        System.out.println("Fisk " + toReturn);
       }
-      if (dist.getLetter() == 0) {
-        for (int i = 1; i < dist.getNumber(); i++) {
+      Vector dir = newPos.sub(pos).dir();
+      int measure = dist.getLetter() > dist.getNumber() ? dist.getLetter() : dist.getNumber();
+      for (int i = 1; i < measure; i++) {
+        if (isPieceInPos(pieces, pos.add(dir.mult(i, i)))) {
+          toReturn = 0;
 
-          int mod = i * newPos.sub(pos).getNumber() /  dist.getNumber();
-          if (isPieceInPos(pieces, pos.add(0, mod))) {
-            toReturn = 0;
-          }
-          System.out.println(mod);
         }
       }
-      if (dist.getNumber() == 0) {
-        for (int i = 1; i < dist.getLetter(); i++) { // 1, 2, 4
-          int mod = i * newPos.sub(pos).getLetter() /  dist.getLetter();
-          if (isPieceInPos(pieces, pos.add(mod, 0))) {
-            toReturn = 0;
-          }
-        }
+      if (toReturn == 1 && isPieceInPos(pieces, newPos) && getPieceInPos(pieces, newPos).color != color) {
+        toReturn = 2;
       }
+    } else {
+      toReturn = 0;
     }
     return toReturn;
+  }
+  @Override
+  public void moveToPos(Vector newPos) {
+    super.moveToPos(newPos);
+    hasMoved = true;
+  }
+  public boolean isHasMoved() {
+    return hasMoved;
   }
 }

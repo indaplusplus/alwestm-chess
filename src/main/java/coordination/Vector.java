@@ -81,8 +81,20 @@ public class Vector {
   public Vector mult(int letter, int number) {
     return new Vector(this.letter * letter, this.number * number, true);
   }
+  public Vector dir() {
+    int returnLetter = letter == 0 ? 0 : letter / Math.abs(letter);
+    int returnNumber = number == 0 ? 0 : number / Math.abs(number);
+    return new Vector(returnLetter, returnNumber, true);
+  }
   public String getPos() {
     return ""+numbersAndLetters.inverse().get(letter) + number;
+  }
+  public int getGraphicInt() {
+    return (7 - (number - 1)) * 8 + letter - 1;
+  }
+  public static Vector graphicToVector(int i) {
+    i++;
+    return new Vector (8 - ((64 - i)  % 8), ((64 - i) / 8) + 1); //1 - 1 64 8, 8
   }
 
   /**

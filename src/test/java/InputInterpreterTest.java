@@ -3,17 +3,16 @@ import coordination.Vector;
 import logic.MoveType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import runninglogic.InputInterpreter;
 
 class InputInterpreterTest {
   @Test
   void testPosition() {
-    InputInterpreter inpin;// = new InputInterpreter("Nxe4");
+    InputInterpreter inpin;// = new runninglogic.InputInterpreter("Nxe4");
 
     //assertEquals(inpin.getDestination(), new Vector(5, 4) );
 
-    //inpin = new InputInterpreter("f2");
+    //inpin = new runninglogic.InputInterpreter("f2");
 
     //assertEquals(inpin.getDestination(), new Vector(6, 2));
     inpin = new InputInterpreter("Rdxe4");

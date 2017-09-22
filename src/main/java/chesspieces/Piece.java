@@ -80,4 +80,15 @@ public abstract class Piece {
   public String toDraw() {
     return getPieceType() + " at " + getPosition().toString();
   }
+  public ArrayList<Vector> getPossibleMovesFree(ArrayList<Piece> pieces) {
+    ArrayList<Vector> list = new ArrayList<>();
+    for (int i = 1; i <= 8; i++) {
+      for (int j = 1; j <= 8; j++) {
+        if (canMoveToPos(pieces, new Vector(i, j)) == 2) {
+          list.add(new Vector(i, j));
+        }
+      }
+    }
+    return list;
+  }
 }

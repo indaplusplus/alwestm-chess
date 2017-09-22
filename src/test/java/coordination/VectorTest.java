@@ -1,6 +1,7 @@
 package coordination;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,5 +18,10 @@ class VectorTest {
     Assertions.assertThrows(IllegalArgumentException.class, () -> {
       new Vector(100, 101);
     });
+  }
+  @Test
+  void graphic() {
+    System.out.println(Vector.graphicToVector(63).toString());
+
   }
 }

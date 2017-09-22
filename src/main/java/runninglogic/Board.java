@@ -1,7 +1,11 @@
+package runninglogic;
+
 import chesspieces.*;
 import coordination.Vector;
 
 import java.util.ArrayList;
+import jdk.internal.util.xml.impl.Input;
+import logic.MoveType;
 
 public class Board {
   private ArrayList<Piece> pieces = new ArrayList<>();
@@ -54,31 +58,20 @@ public class Board {
     pieces.add(new Knight(new Vector("g8"), Color.BLACK));
     pieces.add(new Rook(new Vector("h8"), Color.BLACK));
   }
-  public String update(String input) {
-    InputInterpreter inpin = null;
-    if (input.equals("0-0")) { //Check if castling
-
-    } else if (input.equals("0-0-0")) {
-
-    } else if (input.equals("=")) {
-      if (hasOfferedDraw) {
-        gamestate = 1;
-        return "Draw was accepted";
-      }
-    } else {
-      inpin = new InputInterpreter(input);
-      hasOfferedDraw = false;
+  public String update(InputInterpreter inpin) throws IllegalArgumentException{
+    switch (inpin.getMoveType()) {
+      case KINGSIDE_CASTLING:
+        break;
+      case QUEENSIDE_CASTLING:
+        break;
+      case DRAWOFFER:
+        break;
     }
-    for (Piece p : pieces) {
-      if (p instanceof  Pawn) {
-        ((Pawn) p).setJustMovedTwo(false);
-      }
-    }
+
     Piece p = getMovingPiece(inpin);
-    if (p.getPieceType() == PieceType.QUEEN) {
-      System.out.println(p.getPosition());
-    }
     King k = isWhiteTurn ? whiteKing  : blackKing;
+    MoveType m = MoveType.CAPTURE;
+
     switch (inpin.getMoveType()) {
       case NORMAL:
         p.moveToPos(inpin.getDestination());
@@ -225,13 +218,15 @@ public class Board {
     }
     return toReturn;
   }
-  public ArrayList<Piece> getPiece() {
+  public ArrayList<Piece> getPieces() {
     return pieces;
   }
   public int getGamestate() {
     return gamestate;
   }
-
+  public boolean getIsWhiteTurn() {
+    return isWhiteTurn;
+  }
   /**
    * Draws the board primitively
    */
@@ -273,7 +268,6 @@ public class Board {
       }
       output+="\n";
     }
-    System.out.print(output);
   }
 
 }

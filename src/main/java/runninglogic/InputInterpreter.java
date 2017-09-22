@@ -1,3 +1,6 @@
+package runninglogic;
+
+import com.google.common.collect.HashBiMap;
 import logic.MoveType;
 import chesspieces.PieceType;
 import coordination.Vector;
@@ -7,13 +10,15 @@ import java.util.HashMap;
 public class InputInterpreter {
 
   private Vector destination = null;
+  private PieceType pieceType;
   private PieceType pieceTypeToMove = null;
   private PieceType toPromoteTo = null;
   private String determinePieceInfo = null;
   private MoveType moveType = null;
 
-  private static final HashMap<Character, PieceType> translateCmdMap = new HashMap<Character, PieceType>();
+  public static HashBiMap<Character, PieceType> translateCmdMap;
   static {
+    translateCmdMap = translateCmdMap.create();
     translateCmdMap.put('R', PieceType.ROOK);
     translateCmdMap.put('N', PieceType.KNIGHT);
     translateCmdMap.put('B', PieceType.BISHOP);
@@ -26,7 +31,26 @@ public class InputInterpreter {
    * Converts an algebraic chess notation entry into useful data for attempting to process a move.
    * Does not check for castling
    */
+  public InputInterpreter(Vector destination, PieceType pieceType, MoveType moveType, String determinePieceInfo, PieceType toPromoteTo) {
+
+    this.destination = destination;
+    this.pieceType = pieceType;
+    this.moveType = moveType;
+    this.determinePieceInfo = determinePieceInfo;
+    this.toPromoteTo = toPromoteTo;
+  }
   public InputInterpreter(String cmd) throws IllegalArgumentException {
+
+    if (cmd.equals("0-0")) {
+      moveType = MoveType.KINGSIDE_CASTLING;
+      return;
+    } else if (cmd.equals("0-0-0")) {
+      moveType = MoveType.KINGSIDE_CASTLING;
+      return;
+    } else if (cmd.equals("=")) {
+      moveType = MoveType.DRAWOFFER;
+      return;
+    }
 
     moveType = MoveType.NORMAL;
     if (cmd.length() < 2) {
