@@ -27,7 +27,6 @@ public class Pawn extends Piece {
       }
       if (pos.add(0, moveDir * 2).equals(newPos) && !isPieceInPos(pieces, newPos) && !isPieceInPos(pieces, pos.add(0, moveDir)) && !hasMoved) {
         toReturn = 1;
-        System.out.println("Pawn: "+pos.toString() + " "+color + " has moved is "+hasMoved);
       }
     } else { //Capturing
       if (pos.dist(newPos).equals(new Vector(1, 1))) {

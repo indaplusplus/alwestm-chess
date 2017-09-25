@@ -16,8 +16,15 @@ public class King extends Piece {
     Vector dist = pos.dist(newPos);
     Piece ignorablePiece = null;
     if (isPieceInPos(pieces, newPos)) {
-      ignorablePiece = getPieceInPos(pieces, newPos);
-      toReturn = 2;
+      if (getPieceInPos(pieces, newPos).getColor() == color) {
+        toReturn = 0;
+        System.out.println("penis");
+      }
+      if (getPieceInPos(pieces, newPos).getColor() != color) {
+        ignorablePiece = getPieceInPos(pieces, newPos);
+        toReturn = 2;
+      }
+
     }
     if (!pos.equals(newPos)) {
       if (dist.getNumber() > 1 || dist.getLetter() > 1) {
@@ -62,7 +69,7 @@ public class King extends Piece {
     return toReturn;
   }
 
-  public boolean isHasMoved() {
+  public boolean getHasMoved() {
     return hasMoved;
   }
 }

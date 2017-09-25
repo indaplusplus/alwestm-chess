@@ -45,7 +45,7 @@ public class InputInterpreter {
       moveType = MoveType.KINGSIDE_CASTLING;
       return;
     } else if (cmd.equals("0-0-0")) {
-      moveType = MoveType.KINGSIDE_CASTLING;
+      moveType = MoveType.QUEENSIDE_CASTLING;
       return;
     } else if (cmd.equals("=")) {
       moveType = MoveType.DRAWOFFER;
@@ -98,8 +98,11 @@ public class InputInterpreter {
     }
     if (cmd.length() > 2) {
       throw new IllegalArgumentException("That move is unreadable");
+    } else if (cmd.endsWith("x")) {
+      determinePieceInfo = cmd.substring(0,cmd.length() - 1);
+    } else {
+      determinePieceInfo = cmd;
     }
-    determinePieceInfo = cmd;
     if (pieceTypeToMove == null || destination == null || moveType == null) {
       throw new IllegalArgumentException("Did not enter sufficient information");
     }

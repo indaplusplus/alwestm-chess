@@ -40,7 +40,7 @@ public class Rook extends Piece {
     super.moveToPos(newPos);
     hasMoved = true;
   }
-  public boolean isHasMoved() {
+  public boolean getHasMoved() {
     return hasMoved;
   }
 }

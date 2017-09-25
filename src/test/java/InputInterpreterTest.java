@@ -3,6 +3,7 @@ import coordination.Vector;
 import logic.MoveType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import runninglogic.Board;
 import runninglogic.InputInterpreter;
 
 class InputInterpreterTest {
@@ -43,21 +44,28 @@ class InputInterpreterTest {
 
   @Test
   void testSpecialCommands() {
-    InputInterpreter i = new InputInterpreter("a3++");
-    Assertions.assertEquals(i.getMoveType(), MoveType.CHECKMATE);
+    InputInterpreter i;
+    Board b = new Board();
+    b.initializeBoard();
 
-    i = new InputInterpreter("a3+");
-    Assertions.assertEquals(i.getMoveType(), MoveType.CHECK);
+    //i = new InputInterpreter("")
+    i = new InputInterpreter("a4");
+    b.update(i);
 
-    i = new InputInterpreter("a3Q");
-    Assertions.assertEquals(i.getMoveType(), MoveType.PROMOTE);
+    i = new InputInterpreter("a6");
+    b.update(i);
 
-    i = new InputInterpreter("exa3");
-    Assertions.assertEquals(i.getMoveType(), MoveType.CAPTURE);
+    i = new InputInterpreter("a5");
+    b.update(i);
 
-    i = new InputInterpreter("dxe3e.p.");
-    Assertions.assertEquals(i.getMoveType(), MoveType.EN_PASSANT);
+    i = new InputInterpreter("b5");
+    b.update(i);
 
+    i = new InputInterpreter("axb6e.p.");
+    System.out.println(i.getDestination());
+    System.out.println(i.getDeterminePieceInfo());
+    b.update(i);
+    b.Draw();
 
   }
 }

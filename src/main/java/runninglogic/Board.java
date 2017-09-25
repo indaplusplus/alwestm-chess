@@ -58,64 +58,92 @@ public class Board {
     pieces.add(new Knight(new Vector("g8"), Color.BLACK));
     pieces.add(new Rook(new Vector("h8"), Color.BLACK));
   }
-  public String update(InputInterpreter inpin) throws IllegalArgumentException{
-    switch (inpin.getMoveType()) {
-      case KINGSIDE_CASTLING:
-        break;
-      case QUEENSIDE_CASTLING:
-        break;
-      case DRAWOFFER:
-        break;
-    }
+  public void update(InputInterpreter inpin) throws IllegalArgumentException{
 
-    Piece p = getMovingPiece(inpin);
-    King k = isWhiteTurn ? whiteKing  : blackKing;
-    MoveType m = MoveType.CAPTURE;
-
-    switch (inpin.getMoveType()) {
-      case NORMAL:
-        p.moveToPos(inpin.getDestination());
-        break;
-
-      case CAPTURE:
-        for (int i = 0; i < pieces.size(); i++) {
-          if (pieces.get(i).getPosition().equals(inpin.getDestination())) {
-            pieces.remove(i);
-            break;
-          }
+    if (inpin.getMoveType() == MoveType.KINGSIDE_CASTLING || inpin.getMoveType() == MoveType.QUEENSIDE_CASTLING) {
+      King measureKing = isWhiteTurn ? whiteKing : blackKing;
+      Rook measureRook = (Rook)getPieceWithPos(pieces, new Vector(inpin.getMoveType() == MoveType.QUEENSIDE_CASTLING ? 1 : 8, isWhiteTurn ? 1: 8));
+      if (measureKing.getHasMoved() || measureRook.getHasMoved()) {
+        throw new IllegalArgumentException("Piece has already moved");
+      }
+      int[] qSide = {2,3,4};
+      int[] kSide = {6,7};
+      int[] checkPos = inpin.getMoveType() == MoveType.QUEENSIDE_CASTLING ? qSide : kSide;
+      System.out.println(inpin.getMoveType());
+      for (int i = 0; i < checkPos.length; i++) {
+        if (isPieceInPos(pieces, new Vector(checkPos[i], isWhiteTurn ? 1 : 8))) {
+          throw new IllegalArgumentException("Pieces making castling impossible");
         }
-        p.moveToPos(inpin.getDestination());
-        break;
-      case EN_PASSANT:
-        boolean checkLegal = false;
-        for (int i = 0; i < pieces.size(); i++) {
-          if (pieces.get(i) instanceof Pawn) {
-            if (((Pawn) pieces.get(i)).getJustMovedTwo()) {
+      }
+      int rookPos = inpin.getMoveType() == MoveType.QUEENSIDE_CASTLING ? 4 : 6;
+      int kingPos = inpin.getMoveType() == MoveType.QUEENSIDE_CASTLING ? 3 : 7;
+      measureRook.moveToPos(new Vector(rookPos, isWhiteTurn ? 1 : 8));
+      measureKing.moveToPos(new Vector(kingPos, isWhiteTurn ? 1 : 8));
+      if (measureKing.isInCheck(pieces)) {
+        throw new IllegalArgumentException("That would put you in check");
+      }
+      isWhiteTurn = !isWhiteTurn;
+
+    } else {
+      Piece p = getMovingPiece(inpin);
+      King k = isWhiteTurn ? whiteKing  : blackKing;
+      MoveType m = MoveType.CAPTURE;
+
+      switch (inpin.getMoveType()) {
+        case NORMAL:
+          p.moveToPos(inpin.getDestination());
+          break;
+
+        case CAPTURE:
+          for (int i = 0; i < pieces.size(); i++) {
+            if (pieces.get(i).getPosition().equals(inpin.getDestination())) {
               pieces.remove(i);
-              i--;
+              break;
             }
           }
+          p.moveToPos(inpin.getDestination());
+          break;
+        case EN_PASSANT:
+          boolean checkLegal = false;
+          for (int i = 0; i < pieces.size(); i++) {
+            if (pieces.get(i) instanceof Pawn) {
+              if (((Pawn) pieces.get(i)).getJustMovedTwo()) {
+                pieces.remove(i);
+                i--;
+              }
+            }
+          }
+          System.out.println(inpin.getDestination());
+          p.moveToPos(inpin.getDestination());
+
+          break;
+        case PROMOTE:
+          p.moveToPos(inpin.getDestination());
+          break;
+
+
+        case CHECK:
+          break;
+
+
+        case CHECKMATE:
+
+          break;
+        default:
+          p.moveToPos(inpin.getDestination());
+          break;
+      }
+      if ((isWhiteTurn ? whiteKing : blackKing).isInCheck(pieces)) {
+        throw new IllegalArgumentException("That would put you in check");
+      }
+      isWhiteTurn = !isWhiteTurn;
+      for (Piece piece : pieces) {
+        if (!piece.equals(p) && piece instanceof Pawn) {
+          ((Pawn)piece).setJustMovedTwo(false);
         }
-        p.moveToPos(inpin.getDestination());
+      }
+    }
 
-        break;
-      case PROMOTE:
-        p.moveToPos(inpin.getDestination());
-        break;
-
-      default:
-        p.moveToPos(inpin.getDestination());
-        break;
-    }
-    if ((isWhiteTurn ? whiteKing : blackKing).isInCheck(pieces)) {
-      throw new IllegalArgumentException("That would put you in check");
-    }
-    isWhiteTurn = !isWhiteTurn;
-    String toReturn = "Moved successfully";
-    if (isInCheckMate(isWhiteTurn ? blackKing : whiteKing)) {
-      toReturn = "Moved successfully. \n Checkmate, " + (isWhiteTurn ? "black" : "white" + " wins");
-    }
-    return toReturn;
   }
 
   /**
@@ -201,7 +229,16 @@ public class Board {
     }
     return returnPiece;
   }
-  private Piece getPieceWithPos(ArrayList<Piece> searchThroughPieces, Vector pos ) {
+  private boolean isPieceInPos(ArrayList<Piece> pieces, Vector pos) {
+    boolean toReturn = false;
+    for (Piece p : pieces) {
+      if (p.getPosition().equals(pos)) {
+        toReturn = true;
+      }
+    }
+    return toReturn;
+  }
+  private Piece getPieceWithPos(ArrayList<Piece> searchThroughPieces, Vector pos ) throws IllegalArgumentException{
     for (Piece p : searchThroughPieces) {
       if (p.getPosition().equals(pos)) {
         return p;
@@ -230,7 +267,7 @@ public class Board {
   /**
    * Draws the board primitively
    */
-  public void Draw() {
+  public String Draw() {
     String output = "";
     for (int i = 8; i >= 1; i--) {
       for (int j = 1; j <= 8; j++) {
@@ -240,22 +277,22 @@ public class Board {
             hasPiece = true;
             switch (p.getPieceType()) {
               case PAWN:
-                output+="P ";
+                output += "P ";
                 break;
               case ROOK:
-                output+="R ";
+                output += "R ";
                 break;
               case KNIGHT:
-                output+="N ";
+                output += "N ";
                 break;
               case BISHOP:
-                output+="B ";
+                output += "B ";
                 break;
               case QUEEN:
-                output+="Q ";
+                output += "Q ";
                 break;
               case KING:
-                output+="K ";
+                output += "K ";
                 break;
               case NULL:
                 break;
@@ -266,8 +303,8 @@ public class Board {
           output += "O ";
         }
       }
-      output+="\n";
+      output += "\n";
     }
+    return output;
   }
-
 }
