@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="beb51134-b07c-4e53-a3db-87a8efedf063" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/GameBootstrap$1.class" afterPath="$PROJECT_DIR$/target/classes/GameBootstrap$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/GameBootstrap.class" afterPath="$PROJECT_DIR$/target/classes/GameBootstrap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/chesspieces/King.class" afterPath="$PROJECT_DIR$/target/classes/chesspieces/King.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/chesspieces/Pawn.class" afterPath="$PROJECT_DIR$/target/classes/chesspieces/Pawn.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/chesspieces/Rook.class" afterPath="$PROJECT_DIR$/target/classes/chesspieces/Rook.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/runninglogic/InputInterpreter.class" afterPath="$PROJECT_DIR$/target/classes/runninglogic/InputInterpreter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/InputInterpreterTest.class" afterPath="$PROJECT_DIR$/target/test-classes/InputInterpreterTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/GameBootstrap.java" afterPath="$PROJECT_DIR$/src/main/java/GameBootstrap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/chesspieces/King.java" afterPath="$PROJECT_DIR$/src/main/java/chesspieces/King.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/chesspieces/Pawn.java" afterPath="$PROJECT_DIR$/src/main/java/chesspieces/Pawn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/chesspieces/Rook.java" afterPath="$PROJECT_DIR$/src/main/java/chesspieces/Rook.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/runninglogic/Board.java" afterPath="$PROJECT_DIR$/src/main/java/runninglogic/Board.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/runninglogic/InputInterpreter.java" afterPath="$PROJECT_DIR$/src/main/java/runninglogic/InputInterpreter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/InputInterpreterTest.java" afterPath="$PROJECT_DIR$/src/test/java/InputInterpreterTest.java" />
-    </list>
+    <list default="true" id="beb51134-b07c-4e53-a3db-87a8efedf063" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -696,7 +680,7 @@
       <workItem from="1506007033127" duration="6008000" />
       <workItem from="1506017877370" duration="25848000" />
       <workItem from="1506084851164" duration="4000" />
-      <workItem from="1506087803676" duration="25830000" />
+      <workItem from="1506087803676" duration="26427000" />
     </task>
     <servers />
   </component>
@@ -733,7 +717,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57690000" />
+    <option name="totallyTimeSpent" value="58287000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1053" extended-state="6" />
