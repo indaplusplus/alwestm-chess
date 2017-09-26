@@ -24,7 +24,6 @@ class InputInterpreterTest {
 
 
   }
-
   @Test
   void testTypeIsCorrect() {
     InputInterpreter inpin = new InputInterpreter("Bxe1");
@@ -32,7 +31,6 @@ class InputInterpreterTest {
 
 
   }
-
   @Test
   void canPromote() {
 

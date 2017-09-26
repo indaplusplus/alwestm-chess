@@ -106,10 +106,7 @@ public class GameBootstrap {
                 // Set a list of possible moves
                 ArrayList<Integer> in = new ArrayList<>();
 
-
                 gb.setPossibleMoves(in);
-                // If the location can be selected
-                //gb.check(34);
                 return true;
             }
 

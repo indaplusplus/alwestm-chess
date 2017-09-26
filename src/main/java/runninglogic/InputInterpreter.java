@@ -7,6 +7,7 @@ import coordination.Vector;
 
 import java.util.HashMap;
 
+
 public class InputInterpreter {
 
   private Vector destination = null;
@@ -29,7 +30,6 @@ public class InputInterpreter {
 
   /**
    * Converts an algebraic chess notation entry into useful data for attempting to process a move.
-   * Does not check for castling
    */
   public InputInterpreter(Vector destination, PieceType pieceType, MoveType moveType, String determinePieceInfo, PieceType toPromoteTo) {
 

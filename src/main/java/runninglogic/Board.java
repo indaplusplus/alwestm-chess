@@ -7,23 +7,36 @@ import java.util.ArrayList;
 import jdk.internal.util.xml.impl.Input;
 import logic.MoveType;
 
+/**
+ * Runs the game board, updates by taking the command to move as a parameter in Update()
+ */
 public class Board {
+
+  /**
+   * Using the game's pieces.
+   */
   private ArrayList<Piece> pieces = new ArrayList<>();
   private boolean isWhiteTurn = true;
   private King whiteKing;
   private King blackKing;
+
   private boolean hasOfferedDraw = false;
   /**
+   * States the game's outcome, will most of the time be at 0
+   *
    * 0 - Game playing
    * 1 - Draw
    * 2 - White wins
    * 3 - Black wins
    */
   private int gamestate = 0;
+
+  /**
+   * Currently unused for anything more than simple constructing, could presumably be
+   */
   public Board() {
 
   }
-  private static final char[] validInputLetters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
   /**
    * Initializes board
@@ -246,6 +259,7 @@ public class Board {
     }
     throw new IllegalArgumentException("No piece that can move as specified");
   }
+
   private boolean isInCheckMate(King k) {
     boolean toReturn = false;
     for (Piece p : pieces) {
@@ -255,9 +269,11 @@ public class Board {
     }
     return toReturn;
   }
+
   public ArrayList<Piece> getPieces() {
     return pieces;
   }
+
   public int getGamestate() {
     return gamestate;
   }
@@ -265,7 +281,7 @@ public class Board {
     return isWhiteTurn;
   }
   /**
-   * Draws the board primitively
+   * Returns a string which can be used to primitively visualise the board
    */
   public String Draw() {
     String output = "";
