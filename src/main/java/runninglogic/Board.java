@@ -2,9 +2,7 @@ package runninglogic;
 
 import chesspieces.*;
 import coordination.Vector;
-
 import java.util.ArrayList;
-import jdk.internal.util.xml.impl.Input;
 import logic.MoveType;
 
 /**

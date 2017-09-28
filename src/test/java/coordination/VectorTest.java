@@ -1,27 +1,24 @@
 package coordination;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class VectorTest {
-  @org.junit.jupiter.api.Test
-  void getPos() {
+public class VectorTest {
+  @Test
+  public void getPos() {
     Vector v1 = new Vector(3, 2);
     Vector v2 = new Vector("b3");
-    assertTrue(v1.getPos().equals("c2"));
-    assertTrue(v2.getPos().equals("b3"));
+    Assert.assertTrue(v1.getPos().equals("c2"));
+    Assert.assertTrue(v2.getPos().equals("b3"));
   }
-  @org.junit.jupiter.api.Test
-  void settingPos() {
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      new Vector(100, 101);
-    });
-  }
-  @Test
-  void graphic() {
-    System.out.println(Vector.graphicToVector(63).toString());
 
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void settingPos() {
+    new Vector(100, 101);
+  }
+
+  @Test
+  public void graphic() {
+    System.out.println(Vector.graphicToVector(63).toString());
   }
 }

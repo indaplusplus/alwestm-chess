@@ -1,11 +1,10 @@
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import runninglogic.Board;
 import runninglogic.InputInterpreter;
 
-
-class BoardTest {
+public class BoardTest {
   @Test
-  void wholeGame() {
+  public void wholeGame() {
     InputInterpreter inpin = new InputInterpreter("e4");
     Board b = new Board();
     b.initializeBoard();

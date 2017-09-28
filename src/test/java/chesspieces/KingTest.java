@@ -1,15 +1,13 @@
 package chesspieces;
 
 import coordination.Vector;
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;
+import org.junit.Assert;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class KingTest {
+public class KingTest {
   @Test
-  void move() {
+  public void move() {
     ArrayList<Piece> pieces = new ArrayList<Piece>();
     Piece p = new King(new Vector(2,2), Color.WHITE);
 
@@ -17,8 +15,7 @@ class KingTest {
     pieces.add(new Rook(new Vector(7, 3), Color.BLACK));
     pieces.add(new Knight(new Vector(3, 3), Color.BLACK));
 
-    assertTrue(p.canMoveToPos(pieces, new Vector(2, 3)) == 1);
-    assertTrue(p.canMoveToPos(pieces, new Vector(3, 3)) == 0);
+    Assert.assertEquals(1, p.canMoveToPos(pieces, new Vector(2, 3)));
+    Assert.assertEquals(0, p.canMoveToPos(pieces, new Vector(3, 3)));
   }
-
 }

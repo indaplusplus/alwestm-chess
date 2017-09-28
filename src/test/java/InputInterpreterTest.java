@@ -1,14 +1,14 @@
 import chesspieces.PieceType;
 import coordination.Vector;
 import logic.MoveType;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 import runninglogic.Board;
 import runninglogic.InputInterpreter;
 
-class InputInterpreterTest {
+public class InputInterpreterTest {
   @Test
-  void testPosition() {
+  public void testPosition() {
     InputInterpreter inpin;// = new runninglogic.InputInterpreter("Nxe4");
 
     //assertEquals(inpin.getDestination(), new Vector(5, 4) );
@@ -17,31 +17,28 @@ class InputInterpreterTest {
 
     //assertEquals(inpin.getDestination(), new Vector(6, 2));
     inpin = new InputInterpreter("Rdxe4");
-    Assertions.assertEquals(inpin.getPieceTypeToMove(), PieceType.ROOK);
+    Assert.assertEquals(inpin.getPieceTypeToMove(), PieceType.ROOK);
     System.out.println(inpin.getDeterminePieceInfo());
-    Assertions.assertEquals(inpin.getDestination(), new Vector(5, 4));
-    Assertions.assertEquals(inpin.getDeterminePieceInfo(), "d");
-
-
+    Assert.assertEquals(inpin.getDestination(), new Vector(5, 4));
+    Assert.assertEquals(inpin.getDeterminePieceInfo(), "d");
   }
+
   @Test
-  void testTypeIsCorrect() {
+  public void testTypeIsCorrect() {
     InputInterpreter inpin = new InputInterpreter("Bxe1");
-    Assertions.assertEquals(inpin.getPieceTypeToMove(), PieceType.BISHOP);
-
-
+    Assert.assertEquals(inpin.getPieceTypeToMove(), PieceType.BISHOP);
   }
-  @Test
-  void canPromote() {
 
+  @Test
+  public void canPromote() {
     InputInterpreter inpin = new InputInterpreter("e8Q");
-    Assertions.assertEquals(inpin.getDestination(), new Vector(5, 8));
-    Assertions.assertEquals(inpin.getToPromoteTo(), PieceType.QUEEN);
-    Assertions.assertEquals(inpin.getPieceTypeToMove(), PieceType.PAWN);
+    Assert.assertEquals(inpin.getDestination(), new Vector(5, 8));
+    Assert.assertEquals(inpin.getToPromoteTo(), PieceType.QUEEN);
+    Assert.assertEquals(inpin.getPieceTypeToMove(), PieceType.PAWN);
   }
 
   @Test
-  void testSpecialCommands() {
+  public void testSpecialCommands() {
     InputInterpreter i;
     Board b = new Board();
     b.initializeBoard();
@@ -64,6 +61,5 @@ class InputInterpreterTest {
     System.out.println(i.getDeterminePieceInfo());
     b.update(i);
     b.Draw();
-
   }
 }
